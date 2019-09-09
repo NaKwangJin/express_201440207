@@ -46,12 +46,15 @@ app.post("/users", (req, res) => {
 });
 
 app.put("/users/:id", (req, res) => {
-    if(user && user.id == req.params.id) {
-        user.name = req.body.name; 
-        res.send("user name" + user.name + "으로 변경");
-    } else {
-        res.send("user id " + req.params.id + "가 존재하지 않습니다.")
+    const user = _.find(users, ["id", parseInt(req.params.id)]);
+    let msg = req.body.id+"아이디를 가진 유저가 없습니다."; 
+    let success = false;
+    if(user){
+        req.body.name = 
+        msg = req.body.name+"으로 변경되었습니다.";
+        success = true;
     }
+    res.send({msg, success})
 });
 
 app.delete("/users/:id", (req, res) => {
