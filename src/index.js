@@ -50,7 +50,7 @@ app.put("/users/:id", (req, res) => {
     let msg = req.body.id+"아이디를 가진 유저가 없습니다."; 
     let success = false;
     if(user){
-        req.params.name = req.body.name;
+        user.name = req.body.name;
         msg = req.body.name+"으로 변경되었습니다.";
         success = true;
     }
