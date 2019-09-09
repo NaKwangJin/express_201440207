@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
 const user_router = require("./route/users");
+const board_route = require("./route/board");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/users", user_router);
+app.use("/board", board_route);
 
 app.listen(3000);
 

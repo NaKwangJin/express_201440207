@@ -42,7 +42,7 @@ router.put("/:id", (req, res) => {
         msg = req.body.name+"으로 변경되었습니다.";
         success = true;
     }
-    res.send({msg, success})
+    res.send({msg, success});
 });
 
 router.delete("/:id", (req, res) => {
