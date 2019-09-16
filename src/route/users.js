@@ -1,51 +1,54 @@
 const express = require("express");
 const router = express.Router();
 const _ = require("lodash");
+const models = require("../models");
 
-const Sequelize = require("sequelize");
-const sequelize = new Sequelize("node_example", "root", "0822", { host: "localhost", dialect: "mysql" });
+const User = models.user;
 
-const check_sequlize_auth = async () => {
-    try{
-        await sequelize.authenticate();
-        console.log("연결 성공");
-    }catch(err){
-        console.log("연결 실패: ", err);
-    }
-};
-check_sequlize_auth();
+// const Sequelize = require("sequelize");
+// const sequelize = new Sequelize("node_example", "root", "0822", { host: "localhost", dialect: "mysql" });
 
-const User = sequelize.define("user",{
-    name : {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    password : {
-        type: Sequelize.INTEGER,
-        allowNull: false
-    },
-    address : {
-        type: Sequelize.STRING,
-        allowNull: false
-    }
-});
+// const check_sequlize_auth = async () => {
+//     try{
+//         await sequelize.authenticate();
+//         console.log("연결 성공");
+//     }catch(err){
+//         console.log("연결 실패: ", err);
+//     }
+// };
+// check_sequlize_auth();
 
-User.sync({force:true}).then(()=>{
-    return User.create({
-        name: "홍길동",
-        password: 111,
-        address:"seoul"
-    });
-}).then(()=>{
-    return User.create({
-        name : "김철수",
-        password: 222,
-        address:"seoul"
+// const User = sequelize.define("user",{
+//     name : {
+//         type: Sequelize.STRING,
+//         allowNull: false
+//     },
+//     password : {
+//         type: Sequelize.INTEGER,
+//         allowNull: false
+//     },
+//     address : {
+//         type: Sequelize.STRING,
+//         allowNull: false
+//     }
+// });
+
+// User.sync({force:true}).then(()=>{
+//     return User.create({
+//         name: "홍길동",
+//         password: 111,
+//         address:"seoul"
+//     });
+// }).then(()=>{
+//     return User.create({
+//         name : "김철수",
+//         password: 222,
+//         address:"seoul"
         
-    });
-});
+//     });
+// });
 
-let users = [];
+// let users = [];
 
 router.get("/address/:address", async(req, res) => {
     let result = await User.findAll({
