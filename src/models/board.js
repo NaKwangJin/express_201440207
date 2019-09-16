@@ -14,13 +14,14 @@ module.exports = (sequelize, DataTypes) => {
         }
     });
     // board에 userID 키값 테이블 추가
-    // Board.associate = function(models) {
-    //     models.board.belongsTo(models.user);
-    // };
-
     Board.associate = function(models) {
-        models.board.hasOne(models.user);
+        models.board.belongsTo(models.user);
     };
+
+    // user에 boardId키값 테이블 전송
+    // Board.associate = function(models) {
+    //     models.board.hasOne(models.user);
+    // };
 
     return Board;
 }

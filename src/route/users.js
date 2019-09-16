@@ -72,6 +72,7 @@ router.post("/", async(req, res) => {
     let result = false;
     try{
         await User.create({id: req.body.id, name: req.body.name, password: req.body.password});
+        // await User.setBoard({name: "tttt"});
         result = true;
     }catch(err){
         console.error(err);
