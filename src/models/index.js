@@ -21,6 +21,14 @@ fs.readdirSync(__dirname).filter(file => {
     db[model.name] = model;
     console.log(db);
 });
+
+// db 키 설정
+Object.keys(db).forEach(moduleName => {
+    if (db[moduleName].associate) {
+        db[moduleName].associate(db);
+    }
+});
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
