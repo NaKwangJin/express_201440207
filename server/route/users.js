@@ -4,6 +4,7 @@ const _ = require("lodash");
 const models = require("../models");
 
 const User = models.user;
+const Board = models.board;
 
 // const Sequelize = require("sequelize");
 // const sequelize = new Sequelize("node_example", "root", "0822", { host: "localhost", dialect: "mysql" });
@@ -50,11 +51,10 @@ const User = models.user;
 
 // let users = [];
 
-router.get("/address/:address", async(req, res) => {
+router.get("/", async(req, res) => {
     let result = await User.findAll({
-        where:{
-            address: req.params.address
-        }
+        Attributes: ["name"],
+        include:[Board]
     });
     res.send(result);
 });
@@ -71,7 +71,8 @@ router.get("/:id", async(req, res) => {
 router.post("/", async(req, res) => {
     let result = false;
     try{
-        await User.create({id: req.body.id, name: req.body.name, password: req.body.password});
+        let result_user = await User.create({name: req.body.name, address: req.body.address});
+        await result_user.createBoard({title: "Test", viewcount: 333, content: "tes"});
         // await User.setBoard({name: "tttt"});
         result = true;
     }catch(err){
